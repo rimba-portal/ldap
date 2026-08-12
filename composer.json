@@ -1,0 +1,30 @@
+{
+    "name": "rimba/ldap",
+    "description": "Extension to authentication of user thru AD/LDAP",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "BIT Ecosystem",
+            "email": "bit.ecosystem@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "rimba/foundation": "^1.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Rimba\\Ldap\\LdapServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+           "Rimba\\Ldap\\": "src/"
+        }
+    },
+    "minimum-stability": "alpha",
+    "prefer-stable": true
+}
