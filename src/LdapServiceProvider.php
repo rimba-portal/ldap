@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Rimba\Ldap;
 
 use Rimba\Base\Services\BitesServiceProvider;
-use Rimba\Who\Services\LdapAuthService;
+use Rimba\Ldap\Services\LdapAuthService;
 
 class LdapServiceProvider extends BitesServiceProvider
 {
