@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Rimba\Ldap;
 
 use Rimba\Base\Services\BitesServiceProvider;
-use Rimba\Ldap\Services\LdapAuthService;
 
 class LdapServiceProvider extends BitesServiceProvider
 {
@@ -16,10 +15,11 @@ class LdapServiceProvider extends BitesServiceProvider
 
     protected function registerPackage(): void
     {
-        $this->app->singleton(
-            'bites_auth.auth-provider.ldap',
-            LdapAuthService::class
-        );
+        $this->mergeConfigFrom(__DIR__.'/../config/bites_auth.php', 'bites_auth');
+        $this->app->singleton(LdapIdentityResolver::class);
+        $this->app->singleton(LdapAuthenticator::class);
+        $this->app->tag([LdapIdentityResolver::class], 'bites_auth.external-resolver');
+        $this->app->tag([LdapAuthenticator::class], 'bites_auth.authenticator');
 
     }
 }

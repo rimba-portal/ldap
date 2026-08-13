@@ -6,7 +6,7 @@ namespace Rimba\Ldap\Models;
 
 use LdapRecord\Models\Model;
 
-class User extends Model
+final class AdUser extends Model
 {
     public static array $objectClasses = [
         'top',
