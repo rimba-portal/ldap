@@ -45,7 +45,7 @@ final readonly class CreateLdapUser
 
         /** @var class-string<EloquentModel&Authenticatable> $userModel */
         $userModel = (string) config(
-            'rimba_ldap.local_user_model',
+            'bites_auth.local_user_model',
             config('auth.providers.users.model'),
         );
 
@@ -126,19 +126,19 @@ final readonly class CreateLdapUser
             return;
         }
 
-        $staffModel = (string) config('rimba_ldap.staff_model');
+        $staffModel = (string) config('bites_auth.staff_model');
 
         if ($staffModel === '' || ! class_exists($staffModel)) {
             return;
         }
 
         $staffNumberColumn = (string) config(
-            'rimba_ldap.staff_number_column',
+            'bites_auth.staff_number_column',
             'staff_no',
         );
 
         $staffUserColumn = (string) config(
-            'rimba_ldap.staff_user_column',
+            'bites_auth.staff_user_column',
             'user_id',
         );
 

@@ -77,7 +77,7 @@ final class LdapDiscoveryService
 
     private function attribute(string $key, string $default): string
     {
-        return (string) config("rimba_ldap.attributes.{$key}", $default);
+        return (string) config("bites_auth.attributes.{$key}", $default);
     }
 
     private function firstAttribute(AdUser $user, string $attribute): ?string
