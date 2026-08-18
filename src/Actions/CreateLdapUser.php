@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Rimba\Ldap\Exceptions\LdapIdentityConflict;
 use Rimba\Ldap\Models\AdUser;
 use Rimba\Ldap\Services\LdapDiscoveryService;
+use Rimba\Who\Actions\LinkStaffToUser;
 use Rimba\Who\Models\UserAuth;
 use RuntimeException;
 
@@ -19,6 +20,7 @@ final readonly class CreateLdapUser
 {
     public function __construct(
         private LdapDiscoveryService $ldapDiscoveryService,
+        private LinkStaffToUser $linkStaffToUser,
     ) {}
 
     public function handle(
@@ -70,7 +72,10 @@ final readonly class CreateLdapUser
                     'email' => $email,
                 ])->save();
 
-                $this->linkStaff($user, $staffNumber);
+                $this->linkStaffToUser->handle(
+                    $user,
+                    $staffNumber,
+                );
 
                 return $user;
             }
@@ -112,40 +117,12 @@ final readonly class CreateLdapUser
                 ],
             );
 
-            $this->linkStaff($user, $staffNumber);
+            $this->linkStaffToUser->handle(
+                $user,
+                $staffNumber,
+            );
 
             return $user;
         });
-    }
-
-    private function linkStaff(
-        Authenticatable $user,
-        ?string $staffNumber,
-    ): void {
-        if (blank($staffNumber)) {
-            return;
-        }
-
-        $staffModel = (string) config('bites_auth.staff_model');
-
-        if ($staffModel === '' || ! class_exists($staffModel)) {
-            return;
-        }
-
-        $staffNumberColumn = (string) config(
-            'bites_auth.staff_number_column',
-            'staff_no',
-        );
-
-        $staffUserColumn = (string) config(
-            'bites_auth.staff_user_column',
-            'user_id',
-        );
-
-        $staffModel::query()
-            ->where($staffNumberColumn, $staffNumber)
-            ->update([
-                $staffUserColumn => $user->getAuthIdentifier(),
-            ]);
     }
 }
