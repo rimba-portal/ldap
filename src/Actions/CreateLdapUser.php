@@ -114,6 +114,7 @@ final readonly class CreateLdapUser
                 [
                     'auth_provider' => 'ldap',
                     'auth_identifier' => $canonicalIdentifier,
+                    'setup_completed' => true,
                 ],
             );
 
