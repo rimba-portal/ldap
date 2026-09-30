@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Rimba\Ldap\Http\UI\Admin\Resources\AdUsers\Pages;
 
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Rimba\Ldap\Http\UI\Admin\Resources\AdUsers\AdUserResource;
 
 class ListAdUsers extends ListRecords
 {
-    protected static string $resource = \Rimba\Ldap\Http\UI\Admin\Resources\AdUsers\AdUserResource::class;
+    protected static string $resource = AdUserResource::class;
 
     protected static ?string $title = 'Active Directory Users';
 
