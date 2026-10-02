@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rimba\Ldap\Resolvers;
 
+use Rimba\Ldap\Models\AdUser;
 use Rimba\Ldap\Services\LdapDiscoveryService;
 use Rimba\Who\Contracts\ExternalIdentityResolverContract;
 use Rimba\Who\Support\ExternalIdentity;
@@ -23,7 +24,7 @@ final readonly class LdapIdentityResolver implements ExternalIdentityResolverCon
     {
         $ldapUser = $this->ldapDiscoveryService->find($identifier);
 
-        if (! $ldapUser) {
+        if (! $ldapUser instanceof AdUser) {
             return null;
         }
 

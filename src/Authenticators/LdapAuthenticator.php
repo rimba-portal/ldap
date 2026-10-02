@@ -30,7 +30,7 @@ final readonly class LdapAuthenticator implements IdentityAuthenticatorContract
     ): AuthenticationResult {
         $ldapUser = $this->ldapDiscoveryService->find($identifier);
 
-        if (! $ldapUser) {
+        if (! $ldapUser instanceof AdUser) {
             return new AuthenticationResult(
                 status: AuthenticationStatus::Failed,
                 provider: $this->name(),
